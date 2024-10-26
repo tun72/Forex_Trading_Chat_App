@@ -16,18 +16,16 @@ exports.register = catchAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
 
   const user = await User.register(username, email, password);
+  user.password = undefined;
 
-  const token = await createToken(user._id);
-
-  res.cookie("jwt", token, {
+  res.cookie("jwt", createToken(user._id), {
     httpOnly: true,
     maxAge: 3 * 24 * 60 * 60 * 1000,
   });
 
   return res.json({
     message: "success",
-    user,
-    token: token,
+    userInfo: user,
   });
 });
 
@@ -36,28 +34,21 @@ exports.login = catchAsync(async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     throw new Error(errors.array()[0].msg, { status: 400 });
-
-    // return res.status(400).json({
-    //   isSuccess: false,
-    //   message: errors.array()[0].msg,
-    // });
   }
 
   const { email, password } = req.body;
 
   const user = await User.login(email, password);
+  user.password = undefined;
 
-  const token = createToken(user._id);
-
-  res.cookie("jwt", token, {
+  res.cookie("jwt", createToken(user._id), {
     httpOnly: true,
     maxAge: 3 * 24 * 60 * 60 * 1000,
   });
 
   return res.json({
     message: "success",
-    token,
-    user,
+    userInfo: user,
   });
 });
 
@@ -68,7 +59,7 @@ exports.logout = catchAsync(async (req, res, next) => {
 
 exports.me = catchAsync(async (req, res, next) => {
   return res.status(200).json({
-    user: req.user,
+    userInfo: req.user,
     isAuthenticated: req?.user ? true : false,
   });
 });

@@ -1,19 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Victory from "@/assets/victory.svg";
 import Background from "@/assets/background.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import AuthForm from "@/components/auth/AuthForm";
 
 function Auth() {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handelLogin = async () => {};
-
-  const handelSignup = async () => {};
-
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-purple-50">
       <div
@@ -34,81 +25,22 @@ function Auth() {
           <div className="flex items-center justify-center w-full">
             <Tabs className=" w-3/4" defaultValue="login">
               <TabsList className=" bg-transparent rounded-none  w-full">
-                <TabsTrigger
-                  value="login"
-                  className=" data-[state=active]:bg-transparent
-                   text-black text-opacity-90 border-b-2 rounded-none w-1/2
-                   data-[state=active]:text-black 
-                   data-[state=active]:font-semibold 
-                   data-[state=active]:border-b-purple-500
-                    p-3 transition-all duration-300"
-                >
+                <TabsTrigger value="login" className="tab">
                   Login
                 </TabsTrigger>
-                <TabsTrigger
-                  value="signup"
-                  className="data-[state=active]:bg-transparent
-                   text-black text-opacity-90 border-b-2 rounded-none w-1/2
-                   data-[state=active]:text-black 
-                   data-[state=active]:font-semibold 
-                   data-[state=active]:border-b-purple-500
-                    p-3 transition-all duration-300"
-                >
+                <TabsTrigger value="signup" className="tab">
                   Signup
                 </TabsTrigger>
               </TabsList>
-              <TabsContent className=" flex flex-col gap-5 mt-10" value="login">
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  className="rounded-full p-6"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <Input
-                  placeholder="Password"
-                  type="password"
-                  className="rounded-full p-6"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Button className=" rounded-full p-6" onClick={handelLogin}>
-                  Login
-                </Button>
+              <TabsContent value="login">
+                <AuthForm />
               </TabsContent>
-              <TabsContent className="flex flex-col gap-5" value="signup">
-                <Input
-                  placeholder="Username"
-                  type="text"
-                  className="rounded-full p-6"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  className="rounded-full p-6"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <Input
-                  placeholder="Password"
-                  type="password"
-                  className="rounded-full p-6"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-
-                <Button className=" rounded-full p-6" onClick={handelSignup}>
-                  Signup
-                </Button>
+              <TabsContent value="signup">
+                <AuthForm isSignup={true} />
               </TabsContent>
             </Tabs>
           </div>
         </div>
-
         <div className=" hidden xl:flex justify-center items-center">
           <img src={Background} alt="background login" className="h-[700px]" />
         </div>

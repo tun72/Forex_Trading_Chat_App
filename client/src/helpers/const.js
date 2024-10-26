@@ -1,1 +1,4 @@
-export const layoutContainer = "mx-auto max-w-[82rem] px-2 sm:px-6 lg:px-8";
+export const AUTH_ROUTE = "api/auth";
+export const SIGNUP_ROUTE = `${AUTH_ROUTE}/signup`;
+export const LOGIN_ROUTE = `${AUTH_ROUTE}/login`;
+export const USER_ROUTE = `${AUTH_ROUTE}/me`;

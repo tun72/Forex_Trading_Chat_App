@@ -1,11 +1,11 @@
-import React from 'react'
+import { useAppStore } from "@/store";
+import React from "react";
+
 
 function Chat() {
-  return (
-    <div>
-      chat
-    </div>
-  )
+  const { userInfo } = useAppStore();
+;
+  return <div>chat</div>;
 }
 
-export default Chat
+export default Chat;
