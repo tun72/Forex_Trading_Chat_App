@@ -1,0 +1,1 @@
+export const layoutContainer = "mx-auto max-w-[82rem] px-2 sm:px-6 lg:px-8";
