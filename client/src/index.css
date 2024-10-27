@@ -39,6 +39,9 @@ body {
     data-[state=active]:border-b-purple-500
      p-3 transition-all duration-300;
   }
+  .img-hover {
+    @apply absolute inset-0 flex items-center justify-center bg-black/50 ring-fuchsia-50 rounded-full cursor-pointer;
+  }
 
   .loader {
     width: 45px;

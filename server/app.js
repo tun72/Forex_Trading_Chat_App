@@ -36,6 +36,9 @@ app.use(morgan("dev"));
 //routes
 app.use("/api/auth", AuthRoute);
 
+app.use("/api/user", AuthRoute);
+
+
 // for 404 routes
 app.all("*", (req, res) => {
   return res.status(404).json({ message: "404 Not Found!" });
