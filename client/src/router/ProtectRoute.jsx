@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "@/helpers/axios";
 import { useAppStore } from "@/store";
-import { USER_ROUTE } from "@/helpers/const";
+import { GET_USER_ROUTE } from "@/helpers/const";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -14,7 +14,7 @@ function ProtectRoute({ children }) {
 
   const getUserData = useCallback(async () => {
     try {
-      const response = await axios.get(USER_ROUTE);
+      const response = await axios.get(GET_USER_ROUTE);
       if (response.status === 200) {
         setUserInfo(response.data.userInfo);
         setIsAuthenticated(true);

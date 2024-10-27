@@ -24,7 +24,7 @@ exports.register = catchAsync(async (req, res, next) => {
   });
 
   return res.json({
-    message: "success",
+    status: "success",
     userInfo: user,
   });
 });
@@ -47,7 +47,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 
   return res.json({
-    message: "success",
+    status: "success",
     userInfo: user,
   });
 });
@@ -59,6 +59,7 @@ exports.logout = catchAsync(async (req, res, next) => {
 
 exports.me = catchAsync(async (req, res, next) => {
   return res.status(200).json({
+    status: "success",
     userInfo: req.user,
     isAuthenticated: req?.user ? true : false,
   });

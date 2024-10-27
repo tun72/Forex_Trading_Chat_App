@@ -15,11 +15,13 @@ const ErrorController = require("./controllers/ErrorController");
 
 //Routers
 const AuthRoute = require("./routes/AuthRoute");
+const UserRoute = require("./routes/UserRoute");
 
 //express
 const app = express();
 
 //body parser and public access
+app.use("/upload", express.static(path.join(__dirname, "upload")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json({ limit: "100mb" }));
 
@@ -35,9 +37,7 @@ app.use(morgan("dev"));
 
 //routes
 app.use("/api/auth", AuthRoute);
-
-app.use("/api/user", AuthRoute);
-
+app.use("/api/user", UserRoute);
 
 // for 404 routes
 app.all("*", (req, res) => {
@@ -46,7 +46,6 @@ app.all("*", (req, res) => {
 
 // to handel errors
 app.use(ErrorController);
-
 const PORT = process.env.PORT || 4000;
 mongoose
   .connect(process.env.MONGODB_URL_REMOTE)
