@@ -55,10 +55,15 @@ exports.getOne = (Model, populateOption) =>
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
+
     if (req.filter) {
       filter = req.filter;
     }
-    const document = new APIFeatures(Model.find(filter), req.query).sort();
+    console.log(req.query);
+
+    const features = new APIFeatures(Model.find(filter), req.query).sort();
+
+    const document = await features.query;
 
     res.status(200).json({
       status: "success",

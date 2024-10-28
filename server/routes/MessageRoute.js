@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(AuthMiddleware);
 
-router.get(
+router.post(
   "/",
   [body("id").notEmpty()],
   handleErrorMessage,

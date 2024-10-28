@@ -4,6 +4,8 @@ const factory = require("../controllers/FactoryHandler");
 exports.aliasMessages = (req, res, next) => {
   const user1 = req.user._id;
   const user2 = req.body.id;
+  console.log(user2);
+
   req.query.sort = "timestamp";
   req.filter = {
     $or: [
@@ -11,7 +13,8 @@ exports.aliasMessages = (req, res, next) => {
       { sender: user2, recipient: user1 },
     ],
   };
-  req.next();
+
+  next();
 };
 
 exports.getMessages = factory.getAll(Message);

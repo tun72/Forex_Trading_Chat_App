@@ -14,4 +14,6 @@ router.post(
   contactController.searchContacts
 );
 
+router.get("/", contactController.getContactForDMList);
+
 module.exports = router;

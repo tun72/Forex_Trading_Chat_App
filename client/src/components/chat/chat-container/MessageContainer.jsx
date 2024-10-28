@@ -1,12 +1,40 @@
 import { useAppStore } from "@/store";
+import axios from "@/helpers/axios";
 import moment from "moment";
 import { useEffect, useRef } from "react";
+import { GET_MESSAGES } from "@/helpers/const";
 
 function MessageContainer() {
   // scrollbar hidden
   const scrollRef = useRef();
-  const { selectedChatType, selectedChatData, userInfo, selectedChatMessages } =
-    useAppStore();
+  const {
+    selectedChatType,
+    selectedChatData,
+    userInfo,
+    selectedChatMessages,
+    setSelectedChatMessages,
+  } = useAppStore();
+
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        const response = await axios.post(GET_MESSAGES, {
+          id: selectedChatData._id,
+        });
+        if (response.status === 200 && response.data) {
+          setSelectedChatMessages(response.data.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (!selectedChatData._id) {
+      return;
+    }
+
+    if (selectedChatType === "contact") getMessages();
+  }, [selectedChatData, selectedChatType, setSelectedChatMessages]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -50,7 +78,7 @@ function MessageContainer() {
         </div>
       )}
       <div className="text-xs text-gray-600">
-        {moment(message.timestamp).format(("LT"))}
+        {moment(message.timestamp).format("LT")}
       </div>
     </div>
   );
