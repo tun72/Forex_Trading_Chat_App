@@ -1,18 +1,39 @@
+const mongoose = require("mongoose");
+
 const messageSchema = new mongoose.Schema({
   message: {
     type: String,
-    required: true,
+    required: function () {
+      return this.messageType === "text";
+    },
   },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  channel_id: {
+  recipient: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Channel",
+    ref: "User",
+    required: false,
+  },
+  messageType: {
+    type: String,
+    enum: ["text", "file"],
     required: true,
   },
+  fileUrl: {
+    type: String,
+    required: function () {
+      return this.messageType === "file";
+    },
+  },
+
+  // channel_id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Channel",
+  //   required: true,
+  // },
   timestamp: {
     type: Date,
     default: Date.now,

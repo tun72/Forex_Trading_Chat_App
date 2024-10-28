@@ -1,5 +1,7 @@
 import { Title } from "@/components/ui/title";
 import React from "react";
+import ProfileInfo from "./ProfileInfo";
+import NewDirectMessage from "./NewDirectMessage";
 
 function ContactContainer() {
   return (
@@ -10,6 +12,7 @@ function ContactContainer() {
       <div className="my-5">
         <div className=" flex items-center justify-between pr-10">
           <Title title={"Direct Messages"} />
+          <NewDirectMessage />
         </div>
       </div>
 
@@ -18,6 +21,7 @@ function ContactContainer() {
           <Title title={"Channels"} />
         </div>
       </div>
+      <ProfileInfo />
     </div>
   );
 }

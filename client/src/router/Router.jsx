@@ -7,7 +7,6 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ProtectRoute from "./ProtectRoute";
 
-
 function Router() {
   return (
     <BrowserRouter>
@@ -25,7 +24,7 @@ function Router() {
           <Route path="profile" element={<Profile />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/auth" />} />
+        {/* <Route path="*" element={<Navigate to="/auth" />} /> */}
       </Routes>
     </BrowserRouter>
   );

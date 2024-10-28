@@ -1,3 +1,4 @@
+const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 
 exports.deleteOne = (Model) =>
@@ -53,9 +54,12 @@ exports.getOne = (Model, populateOption) =>
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    console.log("hit");
+    let filter = {};
+    if (req.filter) {
+      filter = req.filter;
+    }
+    const document = new APIFeatures(Model.find(filter), req.query).sort();
 
-    const document = await Model.find();
     res.status(200).json({
       status: "success",
       results: document.length,

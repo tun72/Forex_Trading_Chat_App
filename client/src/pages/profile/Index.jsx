@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAppStore } from "@/store";
-import { Avatar } from "@radix-ui/react-avatar";
+
 import { IoArrowBack } from "react-icons/io5";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { getColor } from "@/lib/utils";
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import axios from "@/helpers/axios";
 import { BACKEND_URL, UPDATE_USER_ROUTE } from "@/helpers/const";
 import toast from "react-hot-toast";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { userInfo, setUserInfo } = useAppStore();

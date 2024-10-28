@@ -5,12 +5,12 @@ import { useAppStore } from "@/store";
 import React from "react";
 
 function Chat() {
-  const { userInfo } = useAppStore();
+  const { userInfo, selectedChatType } = useAppStore();
+
   return (
     <div className=" flex h-[100vh] text-white  overflow-hidden">
       <ContactContainer />
-      {/* <EmptyChatContainer /> */}
-      <ChatContainer />
+      {selectedChatType ? <ChatContainer /> : <EmptyChatContainer />}
     </div>
   );
 }

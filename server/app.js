@@ -10,12 +10,17 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
+//socket
+const setupSocket = require("./socket");
+
 //Controllers
 const ErrorController = require("./controllers/ErrorController");
 
 //Routers
 const AuthRoute = require("./routes/AuthRoute");
 const UserRoute = require("./routes/UserRoute");
+const ContactRoute = require("./routes/ContactRoute");
+const MessageRoute = require("./routes/MessageRoute");
 
 //express
 const app = express();
@@ -38,6 +43,8 @@ app.use(morgan("dev"));
 //routes
 app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
+app.use("/api/contact", ContactRoute);
+app.use("/api/message", MessageRoute);
 
 // for 404 routes
 app.all("*", (req, res) => {
@@ -51,8 +58,10 @@ mongoose
   .connect(process.env.MONGODB_URL_REMOTE)
   .then((_) => {
     console.log("database successfully connected ✅");
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log("Server is running at http://localhost:" + PORT);
     });
+
+    setupSocket(server);
   })
   .catch((error) => console.log(error));
