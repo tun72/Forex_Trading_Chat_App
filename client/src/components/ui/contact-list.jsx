@@ -8,18 +8,19 @@ export default function ContactList({ contacts, isChannel = false }) {
     selectedChatData,
     setSelectedChatData,
     setSelectedChatType,
-    selectedChatType,
     setSelectedChatMessages,
   } = useAppStore();
+
   const handelClick = (contact) => {
     if (isChannel) setSelectedChatType("channel");
     else setSelectedChatType("contact");
 
     setSelectedChatData(contact);
-    if (setSelectedChatData && selectedChatData._id !== contact._id) {
+    if (setSelectedChatData && selectedChatData?._id !== contact._id) {
       setSelectedChatMessages([]);
     }
   };
+
   return (
     <div className="mt-5">
       {contacts.map((contact) => (
@@ -37,7 +38,7 @@ export default function ContactList({ contacts, isChannel = false }) {
               <Avatar className="w-10 h-10  rounded-full overflow-hidden">
                 {contact?.image ? (
                   <AvatarImage
-                    src={BACKEND_URL + "/" + contact.image}
+                    src={BACKEND_URL + "/" + contact?.image}
                     alt="Profile"
                     className="object-cover w-full h-full bg-black"
                   />
@@ -49,7 +50,7 @@ export default function ContactList({ contacts, isChannel = false }) {
                         : getColor()
                     } uppercase w-10 h-10  flex items-center justify-center text-lg border rounded-full `}
                   >
-                    {contact.username.split("").shift()}
+                    {contact?.username.split("").shift()}
                   </div>
                 )}
               </Avatar>

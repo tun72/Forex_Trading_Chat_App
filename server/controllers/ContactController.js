@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/UserModel");
 const Message = require("../models/MessageModel");
-const mongoose = require("mongoose");
+
 exports.searchContacts = catchAsync(async (req, res, next) => {
   const { search } = req.body;
 
@@ -22,7 +22,6 @@ exports.searchContacts = catchAsync(async (req, res, next) => {
 
 exports.getContactForDMList = catchAsync(async (req, res, next) => {
   const userId = req.user._id;
-  // userId = new mongoose.Types.ObjectId(userId);
 
   const contacts = await Message.aggregate([
     {
@@ -37,7 +36,7 @@ exports.getContactForDMList = catchAsync(async (req, res, next) => {
       $group: {
         _id: {
           $cond: {
-            if: { $eq: ["sender", userId] },
+            if: { $eq: ["$sender", userId] },
             then: "$recipient",
             else: "$sender",
           },
@@ -62,8 +61,7 @@ exports.getContactForDMList = catchAsync(async (req, res, next) => {
         lastMessageTime: 1,
         email: "$contactInfo.email",
         username: "$contactInfo.username",
-        image: "$contaactInfo.image",
-        // role: "$contactInfo.role"
+        image: "$contactInfo.image",
       },
     },
     {
@@ -71,5 +69,14 @@ exports.getContactForDMList = catchAsync(async (req, res, next) => {
     },
   ]);
 
+  return res.status(200).json({ contacts });
+});
+
+exports.getAllContacts = catchAsync(async (req, res, next) => {
+  const users = await User.find({ _id: { $ne: req.user._id } });
+  const contacts = users.map((user) => ({
+    value: user._id,
+    label: user.username,
+  }));
   return res.status(200).json({ contacts });
 });

@@ -3,12 +3,19 @@ import React, { useEffect } from "react";
 import ProfileInfo from "./ProfileInfo";
 import NewDirectMessage from "./NewDirectMessage";
 import axios from "@/helpers/axios";
-import { GET_DM_CONTACT } from "@/helpers/const";
+import { GET_DM_CONTACT, GET_USER_CHANNEL_ROUTE } from "@/helpers/const";
 import { useAppStore } from "@/store";
 import ContactList from "@/components/ui/contact-list";
+import CreateChannel from "@/components/admin/chat/CreateChannel";
 
 function ContactContainer() {
-  const { setDirectMessagesContacts, directMessagesContacts } = useAppStore();
+  const {
+    setDirectMessagesContacts,
+    directMessagesContacts,
+    channels,
+    setChannels,
+  } = useAppStore();
+
   useEffect(() => {
     const getContacts = async () => {
       try {
@@ -21,8 +28,19 @@ function ContactContainer() {
         console.log(err);
       }
     };
+
+    const getChannels = async () => {
+      const response = await axios.get(GET_USER_CHANNEL_ROUTE, {
+        withCredentials: true,
+      });
+      if (response.data.channels) {
+        setChannels(response.data.channels);
+      }
+    };
+
     getContacts();
-  }, [setDirectMessagesContacts]);
+    getChannels();
+  }, [setDirectMessagesContacts, setChannels]);
 
   return (
     <div className=" relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] bg-[#1b1c24] border-r-2 border-[#2f303b] w-full">
@@ -43,6 +61,10 @@ function ContactContainer() {
       <div className="my-5">
         <div className=" flex items-center justify-between pr-10">
           <Title title={"Channels"} />
+          <CreateChannel />
+        </div>
+        <div className="max-h-[30vh] overflow-y-auto scrollbar-hidden">
+          <ContactList contacts={channels} isChannel={true} />
         </div>
       </div>
       <ProfileInfo />

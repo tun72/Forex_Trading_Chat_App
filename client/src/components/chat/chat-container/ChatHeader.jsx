@@ -11,23 +11,32 @@ function ChatHeader() {
         <div className="flex gap-3 items-center justify-center">
           <div className="flex gap-3 items-center cursor-pointer">
             <div className="w-12 h-12 relative">
-              <Avatar className="w-12 h-12  rounded-full overflow-hidden">
-                {selectedChatData?.image ? (
-                  <AvatarImage
-                    src={BACKEND_URL + "/" + selectedChatData.image}
-                    alt="Profile"
-                    className="object-cover w-full h-full bg-black"
-                  />
-                ) : (
-                  <div
-                    className={`uppercase w-12 h-12  flex items-center justify-center text-lg border rounded-full ${getColor()}`}
-                  >
-                    {selectedChatData.username.split("").shift()}
-                  </div>
-                )}
-              </Avatar>
+              {selectedChatType === "contact" ? (
+                <Avatar className="w-12 h-12  rounded-full overflow-hidden">
+                  {selectedChatData?.image ? (
+                    <AvatarImage
+                      src={BACKEND_URL + "/" + selectedChatData.image}
+                      alt="Profile"
+                      className="object-cover w-full h-full bg-black"
+                    />
+                  ) : (
+                    <div
+                      className={`uppercase w-12 h-12  flex items-center justify-center text-lg border rounded-full ${getColor()}`}
+                    >
+                      {selectedChatData.username.split("").shift()}
+                    </div>
+                  )}
+                </Avatar>
+              ) : (
+                <div className="bg-[#ffffff22] w-12 h-12  flex items-center justify-center text-lg border rounded-full">
+                  #
+                </div>
+              )}
             </div>
-            <p>{selectedChatType === "contact" && selectedChatData.username}</p>
+            <p>
+            {selectedChatType === "channel" && selectedChatData.name}
+            {selectedChatType === "contact" && selectedChatData.username}
+            </p>
           </div>
         </div>
 

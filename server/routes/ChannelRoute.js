@@ -1,24 +1,25 @@
 const express = require("express");
 const { body } = require("express-validator");
-const messageController = require("../controllers/MessageController");
+const channelController = require("../controllers/ChannelController");
 const handleErrorMessage = require("../middlewares/handleErrorMessage");
 const AuthMiddleware = require("../middlewares/AuthMiddlewate");
+const { channelMiddleware } = require("../middlewares/ChannelMiddleware");
 const router = express.Router();
 
 router.use(AuthMiddleware);
 
 router.post(
   "/",
-  [body("id").notEmpty()],
+  [body("name").notEmpty()],
   handleErrorMessage,
-  messageController.aliasMessages,
-  messageController.getMessages
+  channelMiddleware,
+  channelController.createChannel
 );
 
-router.post(
-  "/upload",
-  messageController.uploadFile,
-  messageController.saveFile
-);
+
+
+
+router.get("/all", channelController.getUserChannels);
+router.get("/:channelId", channelController.getChannelMessages);
 
 module.exports = router;

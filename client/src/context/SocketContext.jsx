@@ -7,13 +7,17 @@ const SocketContext = createContext(null);
 
 export function SocketProvider({ children }) {
   const [socket, setSocket] = useState(null);
-  const { userInfo, selectedChatData, selectedChatType, addMessage } =
-    useAppStore();
+  const {
+    userInfo,
+    selectedChatData,
+    selectedChatType,
+    addMessage,
+    addChannelInChannelList,
+    addContactsInDM,
+  } = useAppStore();
 
   useEffect(() => {
     if (userInfo) {
-      console.log("Setting up socket connection...");
-
       // Initialize socket connection
       const socket = io(BACKEND_URL, {
         withCredentials: true,
@@ -27,9 +31,6 @@ export function SocketProvider({ children }) {
 
       // Define the message handler function
       const handleReceiveMessage = (message) => {
-        console.log("Received a message:", message);
-        console.log("Current selected chat type:", selectedChatType);
-
         // Check if message is from the selected chat
         if (
           selectedChatType &&
@@ -37,25 +38,48 @@ export function SocketProvider({ children }) {
             selectedChatData._id === message.recipient._id)
         ) {
           addMessage(message);
-          console.log("Message added:", message);
         } else {
           console.log("Message not relevant to selected chat.");
         }
+        addContactsInDM(message);
+      };
+
+      const handleReceiveChannelMessage = (message) => {
+        // Check if message is from the selected chat
+
+        if (
+          selectedChatType &&
+          (selectedChatData._id === message.sender._id ||
+            selectedChatData._id === message.channelId)
+        ) {
+          addMessage(message);
+        } else {
+          console.log("Message not relevant to selected chat.");
+        }
+        addChannelInChannelList(message);
       };
 
       // Listen for 'receiveMessage' event
       socket.on("receiveMessage", handleReceiveMessage);
+      socket.on("recieveChannelMessage", handleReceiveChannelMessage);
 
-      // Cleanup function on component unmount
       return () => {
-        console.log("Cleaning up socket connection...");
         if (socket) {
           socket.off("receiveMessage", handleReceiveMessage);
+          socket.off("recieveChannelMessage", handleReceiveChannelMessage);
+
           socket.disconnect();
         }
       };
     }
-  }, [userInfo, addMessage, selectedChatData?._id, selectedChatType]);
+  }, [
+    userInfo,
+    addMessage,
+    selectedChatData?._id,
+    selectedChatType,
+    addChannelInChannelList,
+    addContactsInDM,
+  ]);
 
   return (
     <SocketContext.Provider value={{ socket }}>

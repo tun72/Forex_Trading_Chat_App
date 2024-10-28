@@ -21,9 +21,18 @@ const AuthRoute = require("./routes/AuthRoute");
 const UserRoute = require("./routes/UserRoute");
 const ContactRoute = require("./routes/ContactRoute");
 const MessageRoute = require("./routes/MessageRoute");
+const ChannelRoute = require("./routes/ChannelRoute");
 
 //express
 const app = express();
+
+//cors
+app.use(
+  cors({
+    origin: process.env.FRONTEND,
+    credentials: true,
+  })
+);
 
 //body parser and public access
 app.use("/upload", express.static(path.join(__dirname, "upload")));
@@ -32,12 +41,7 @@ app.use(bodyParser.json({ limit: "100mb" }));
 
 //additional middleware
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.FRONTEND,
-    credentials: true,
-  })
-);
+
 app.use(morgan("dev"));
 
 //routes
@@ -45,6 +49,7 @@ app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/contact", ContactRoute);
 app.use("/api/message", MessageRoute);
+app.use("/api/channel", ChannelRoute);
 
 // for 404 routes
 app.all("*", (req, res) => {
