@@ -8,11 +8,11 @@
 4. Create a MongoDB server and get the MongoDB URI.
 
 ## .env Requirement
-PORT = 4000
-MONGODB_URL_REMOTE = "YOUR_MongoDB URI"
-MY_SECRET= "YOUR_SECRECT"
-FRONTEND=http://localhost:5173
-STATUS="deployment"
+* PORT = 4000
+* MONGODB_URL_REMOTE = "YOUR_MongoDB URI"
+* MY_SECRET= "YOUR_SECRECT"
+* FRONTEND=http://localhost:5173
+* STATUS="deployment"
 
 
 
