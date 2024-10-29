@@ -24,15 +24,17 @@ import { useAppStore } from "@/store";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import MultipleSelector from "@/components/ui/multipleselector";
+import { RadioOption } from "@/components/ui/RadioOption";
 
 export default function CreateChannel() {
   const [openNewContactModal, setOpenNewContactModal] = useState(false);
-  const [searchContacts, setSearchContacts] = useState([]);
-  const { selectedChatData, setSelectedChatType, addChannel } = useAppStore();
+
+  const { addChannel } = useAppStore();
   const [selectedContacts, setselectedContacts] = useState([]);
 
   const [allContacts, setAllContacts] = useState([]);
   const [channelName, setChannelName] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -47,12 +49,17 @@ export default function CreateChannel() {
     getData();
   }, []);
 
+  const handleOptionChange = (value) => {
+    setIsPrivate(value);
+  };
+
   async function createChannel() {
     try {
       if (channelName && selectedContacts.length > 0) {
         const response = await axios.post(CREATE_CHANNEL, {
           name: channelName,
           members: selectedContacts.map((contact) => contact.value),
+          isPrivate,
         });
 
         if (response.status === 201 && response.data) {
@@ -102,6 +109,7 @@ export default function CreateChannel() {
               onChange={(e) => setChannelName(e.target.value)}
             />
           </div>
+
           <div>
             <MultipleSelector
               className="rounded-lg 
@@ -115,6 +123,21 @@ export default function CreateChannel() {
                   No result found
                 </p>
               }
+            />
+          </div>
+
+          <div className=" shadow rounded-md max-w-md text-white flex items-center gap-4">
+            <RadioOption
+              label="Private"
+              value={true}
+              selectedValue={isPrivate}
+              onChange={handleOptionChange}
+            />
+            <RadioOption
+              label="Public"
+              value={false}
+              selectedValue={isPrivate}
+              onChange={handleOptionChange}
             />
           </div>
           <div>

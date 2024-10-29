@@ -2,17 +2,20 @@ const Channel = require("../models/ChannelModel");
 
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./FactoryHandler");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
 exports.createChannel = factory.createOne(Channel);
 
-exports.getUserChannels = catchAsync(async (req, res, next) => {
-  const userId = new mongoose.Types.ObjectId(req.user._id);
-  const channels = await Channel.find({
-    $or: [{ created_by: userId }, { members: userId }],
-  }).sort({ updatedAt: -1 });
+exports.deleteChannel = factory.deleteOne(Channel);
 
-  console.log(channels);
+exports.updateChannel = factory.updateOne(Channel);
+
+exports.getUserChannels = catchAsync(async (req, res, next) => {
+  // const channels = await Channel.find({
+  //   $or: [{ created_by: userId }, { members: userId }],
+  // }).sort({ updatedAt: -1 });
+
+  const channels = await Channel.find().sort({ updatedAt: -1 });
 
   return res.status(200).json({ channels });
 });
@@ -20,13 +23,16 @@ exports.getUserChannels = catchAsync(async (req, res, next) => {
 exports.getChannelMessages = catchAsync(async (req, res, next) => {
   const { channelId } = req.params;
 
-  const channel = await Channel.findById(channelId).populate({
-    path: "messages",
-    populate: {
-      path: "sender",
-    },
-  });
-  const messages = channel.messages;
+  const channel = await Channel.findById(channelId)
+    .populate({
+      path: "messages",
+      populate: {
+        path: "sender",
+      },
+    })
+    .populate("members");
 
-  return res.status(200).json({ messages });
+  return res
+    .status(200)
+    .json({ messages: channel.messages, members: channel.members });
 });

@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Message = require("./MessageModel");
+const { login } = require("../controllers/AuthController");
 
 const ChannelSchema = mongoose.Schema(
   {
@@ -18,5 +20,16 @@ const ChannelSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+ChannelSchema.pre("findOneAndDelete", async function (next) {
+  const channel = await this.model.findOne(this.getFilter());
+
+  if (channel) {
+    await Message.deleteMany({ channelId: channel._id });
+  } else {
+    console.log("Channel not found");
+  }
+  next();
+});
 
 module.exports = mongoose.model("Channel", ChannelSchema);

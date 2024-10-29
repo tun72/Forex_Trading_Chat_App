@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const document = await Model.findByIdAndDelete(req.params.id);
+    const document = await Model.findOneAndDelete(req.params.id);
 
     if (!document) {
       throw new Error("No document found with that ID");
@@ -61,7 +61,8 @@ exports.getAll = (Model) =>
     }
     console.log(req.query);
 
-    const features = new APIFeatures(Model.find(filter), req.query).sort();
+    const features = new APIFeatures(Model.find(filter), req?.query || null).sort();
+    
 
     const document = await features.query;
 

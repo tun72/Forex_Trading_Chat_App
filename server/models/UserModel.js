@@ -17,7 +17,11 @@ const UserSchema = mongoose.Schema(
     },
     password: { type: String, select: false },
 
-    role: { type: String, enum: ["trader", "admin", "guest"] }, // Added role field
+    role: {
+      type: String,
+      enum: ["trader", "admin", "guest"],
+      default: "guest",
+    }, // Added role field
   },
   { timestamps: true }
 );

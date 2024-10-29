@@ -52,10 +52,18 @@ export const createChatSlice = (set, get) => ({
       ],
     });
   },
+
   addChannel: (channel) => {
     const channels = get().channels;
 
     set({ channels: [channel, ...channels] });
+  },
+
+  deleteChannel: (id) => {
+    const channels = get().channels;
+    console.log(channels[0]._id);
+
+    set({ channels: channels.filter((channel) => channel._id !== id) });
   },
 
   addChannelInChannelList: (message) => {
@@ -93,4 +101,17 @@ export const createChatSlice = (set, get) => ({
 
     set({ directMessagesContacts: dmContacts });
   },
+
+  clearAll: () =>
+    set({
+      selectedChatType: undefined,
+      selectedChatData: undefined,
+      selectedChatMessages: [],
+      directMessagesContacts: [],
+      isUploading: false,
+      isDownloading: false,
+      fileUploadProgress: 0,
+      fileDownloadProgress: 0,
+      channels: [],
+    }),
 });

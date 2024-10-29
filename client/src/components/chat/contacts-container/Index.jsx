@@ -14,6 +14,7 @@ function ContactContainer() {
     directMessagesContacts,
     channels,
     setChannels,
+    userInfo,
   } = useAppStore();
 
   useEffect(() => {
@@ -61,7 +62,7 @@ function ContactContainer() {
       <div className="my-5">
         <div className=" flex items-center justify-between pr-10">
           <Title title={"Channels"} />
-          <CreateChannel />
+          {userInfo?.role === "admin" && <CreateChannel />}
         </div>
         <div className="max-h-[30vh] overflow-y-auto scrollbar-hidden">
           <ContactList contacts={channels} isChannel={true} />

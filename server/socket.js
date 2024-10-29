@@ -32,8 +32,6 @@ const setupSocket = (server) => {
       .populate("sender")
       .populate("recipient");
 
-    console.log("hit big");
-
     if (recipientSocketId) {
       console.log("hit recipient");
       io.to(recipientSocketId).emit("receiveMessage", messageData);
@@ -55,6 +53,7 @@ const setupSocket = (server) => {
       messageType,
       timestamp: new Date(),
       fileUrl,
+      channelId,
     });
 
     const channel = await Channel.findById(channelId).populate("members");

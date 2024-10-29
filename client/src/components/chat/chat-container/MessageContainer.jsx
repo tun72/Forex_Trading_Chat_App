@@ -6,7 +6,7 @@ import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { GET_MESSAGES, BACKEND_URL, CHANNEL_ROUTE } from "@/helpers/const";
 import { FaFileArchive } from "react-icons/fa";
-import { IoArrowDown, IoArrowRedoOutline, IoCloseSharp } from "react-icons/io5";
+import { IoArrowDown, IoCloseSharp } from "react-icons/io5";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getColor } from "@/lib/utils";
 

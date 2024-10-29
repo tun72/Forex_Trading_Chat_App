@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function ProfileInfo() {
-  const { userInfo, setUserInfo } = useAppStore();
+  const { userInfo, setUserInfo, clearAll } = useAppStore();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -28,6 +28,7 @@ function ProfileInfo() {
 
       if (response.status === 200) {
         setUserInfo(null);
+        clearAll();
         toast.success("logout success");
         return navigate("/auth");
       }
@@ -53,7 +54,7 @@ function ProfileInfo() {
               <div
                 className={`uppercase h-12 w-12 flex items-center justify-center text-lg border rounded-full ${getColor()}`}
               >
-                insert photo
+                {userInfo?.username?.split("")?.shift()}
               </div>
             )}
           </Avatar>

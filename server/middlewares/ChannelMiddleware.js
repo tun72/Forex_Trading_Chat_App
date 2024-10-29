@@ -10,6 +10,8 @@ exports.channelMiddleware = catchAsync(async (req, res, next) => {
     throw new Error("Some members are not valid.");
   }
 
+  
+
   console.log(members);
 
   req.body.created_by = req.user._id;
