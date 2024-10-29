@@ -49,7 +49,7 @@ function Auth() {
           </div>
         </div>
         <div className=" hidden xl:flex justify-center items-center">
-          <img src={Background} alt="background login" className="h-[600px] " />
+          <img src={Background} alt="background login" className="h-[600px] object-fit" />
         </div>
       </div>
     </div>
