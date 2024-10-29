@@ -6,10 +6,14 @@
 2. Clone the repository to your local system.
 3. In the root folder, create a '.env' file.
 4. Create a MongoDB server and get the MongoDB URI.
-5. Add env variables as "MONGO_URI" to the .env file
-6. Add a PORT variable and JWT_SECRET variable too.
-7. Set PORT = 4000
-8. Set JWT_SECRET as a string of your choice.
+
+## .env Requirement
+PORT = 4000
+MONGODB_URL_REMOTE
+MY_SECRET="I-am-super-man"
+FRONTEND=http://localhost:5173
+STATUS="deployment"
+
 
 
 ## Steps to run the project
