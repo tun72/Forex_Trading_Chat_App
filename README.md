@@ -8,7 +8,7 @@
 4. Create a MongoDB server and get the MongoDB URI.
 5. Add env variables as "MONGO_URI" to the .env file
 6. Add a PORT variable and JWT_SECRET variable too.
-7. Set PORT = 5000
+7. Set PORT = 4000
 8. Set JWT_SECRET as a string of your choice.
 
 
@@ -17,18 +17,22 @@
 1. Open up the command terminal from the root directory and type `npm start` to start the backend server.
 
 2. Open another command prompt and type the following to start the frontend.  
-`cd frontend`  
+`cd client`
+`npm i`
 `npm run dev`
 
-3. The application would be run on http://127.0.0.1:5173/
+3. Open another command prompt and type the following to start the backend.  
+`cd server`
+`npm i`
+`nodemon app`
 
-4. An admin user will be created in the database  
+4. The application would be run on http://127.0.0.1:5173/
 
-    Email : admin@nitk.edu.in  
-    Password: admin123
+4. The server would be run on http://127.0.0.1:4000/
+   
+
 
 ## List of implemented features
-
 * Register and Login User
 * Each user gets a unique avatar
 * Users can only register with NITK email id
@@ -45,11 +49,8 @@
 * Filtering based on category and User branch
 
 ## List of planned features
-
-* User authentication with Google OAuth
+* User authentication 
 * Better and responsive UI
-* Charts to show metadata about the gyans
-* Dark mode
 * More filtering options
 
 ## List of known bugs
@@ -60,8 +61,8 @@
 
 ## References
 * Stack Overflow
-* LogRocket blog
 * Tailwind CSS docs
+* schdn ui
 * W3School
 * Jason Watmore's blog
 * Mongoose JS docs
@@ -70,61 +71,23 @@
 
 ## Screenshots
 
-Register Form
 
-![Register Form](./screenshots/1.png?raw=true "Register Form")
+Login And Register Form
 
+![Login Form](./screenshots/1.png?raw=true "Login Form")
 
-Login Form
+Chat Layout
 
-![Login Form](./screenshots/3.png?raw=true "Login Form")
+![Chat Layout](./screenshots/2.png?raw=true "User List")
 
-User List
+Search Contact
 
-![User List](./screenshots/5.png?raw=true "User List")
+![Search Contact](./screenshots/3.png?raw=true "User Details (1)")
 
-User Details (1)
+Update Profile
 
-![User Details (1)](./screenshots/6.png?raw=true "User Details (1)")
+![Update Profile](./screenshots/4.png?raw=true "User Details (2)")
 
-User Details (2)
-
-![User Details (2)](./screenshots/7.png?raw=true "User Details (2)")
-
-Edit User Form
-
-![Edit User](./screenshots/8.png?raw=true "Edit User")
-List of Gyans
-
-![List of Gyans](./screenshots/9.png?raw=true "List of Gyans")
-Filtering
-
-![Filtering](./screenshots/10.png?raw=true "Filtering")
-List of Categories
-
-![List of Categories](./screenshots/11.png?raw=true "List of Categories")
-Add Category
-
-![Add Category](./screenshots/12.png?raw=true "Add Category")
-List of Questions in a category
-
-![List of Questions in a category](./screenshots/13.png?raw=true "List of Questions in a category")
-
-User Dashboard (1)
-
-![UserDashboard](./screenshots/14.png?raw=true "User Dashboard")
-
-User Dashboard (2)
-
-![UserDashboard](./screenshots/15.png?raw=true "User Dashboard")
-
-Single Gyan
-
-![Single Gyan](./screenshots/16.png?raw=true "Single Gyan")
-
-
-
-CREDITS: [Harshit Gupta](https://github.com/hgupta12)
 
 
 
