@@ -9,8 +9,8 @@
 
 ## .env Requirement
 PORT = 4000
-MONGODB_URL_REMOTE
-MY_SECRET="I-am-super-man"
+MONGODB_URL_REMOTE = "YOUR_MongoDB URI"
+MY_SECRET= "YOUR_SECRECT"
 FRONTEND=http://localhost:5173
 STATUS="deployment"
 
