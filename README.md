@@ -1,4 +1,4 @@
-# IRIS Code In 107 Task-2 
+# Forex Trading Chat App Project
 
 ## Installation Steps:
 
@@ -6,10 +6,14 @@
 2. Clone the repository to your local system.
 3. In the root folder, create a '.env' file.
 4. Create a MongoDB server and get the MongoDB URI.
-5. Add env variables as "MONGO_URI" to the .env file
-6. Add a PORT variable and JWT_SECRET variable too.
-7. Set PORT = 4000
-8. Set JWT_SECRET as a string of your choice.
+
+## .env Requirement
+* PORT = 4000
+* MONGODB_URL_REMOTE = "YOUR_MongoDB URI"
+* MY_SECRET= "YOUR_SECRECT"
+* FRONTEND=http://localhost:5173
+* STATUS="deployment"
+
 
 
 ## Steps to run the project
@@ -33,31 +37,23 @@
 
 
 ## List of implemented features
-* Register and Login User
-* Each user gets a unique avatar
-* Users can only register with NITK email id
-* Different roles like Admin, Internship Coordinator, Placement Coordinator and User.
-* List of categories with ability to add and delete category for the admin
-* List of Users with their information
-* Admin can change allowed categories for each user and handle their roles and status.
-* Internship and Placement coordinators can edit the User status.
-* User Dashboard where a user can see the categories he can write about and the gyans he has already wrote.
-* List of Gyans
-* Seperate page for each Gyan with an accordion
-* Forms to add and edit gyans
-* Pagination on the Gyan Page
-* Filtering based on category and User branch
+* User Registration and Login: Users can register and log in to the chat application.
+* Unique User Avatars: Each user is assigned a unique avatar to represent them in the chat.
+* Email Registration Restriction: Users can only register using a valid NITK email ID.
+* Role Management: Different user roles, including Admin, Internship Coordinator, Placement Coordinator, and User, each with specific permissions.
+* Category Management: Admins can view, add, and delete categories for better organization of chat topics related to Forex trading.
+* User Management: Admins can view a list of users along with their information and manage their roles and statuses.
+* User Status Management: Internship and Placement Coordinators have the ability to edit the status of users.
+* User Dashboard: Users can view their accessible categories and any important updates relevant to Forex trading.
+* Real-Time Chat Functionality: Users can engage in real-time discussions about Forex trading strategies, market trends, and news.
+* Filtering Options: Users can filter chat topics based on categories and specific trading interests for easier access to relevant conversations.
 
 ## List of planned features
 * User authentication 
 * Better and responsive UI
 * More filtering options
 
-## List of known bugs
-* The pagination only lets the filter to apply on the current Gyans being rendered on the page.
-* On deleting a category, a question or a user, the documents in which they were refered are not deleted. This renders them as null on populating from the database and breaks the application.
-* On smaller screen, the UI breaks
-* A user should be able to write a single gyan and each topic but he can write multiple of them.
+
 
 ## References
 * Stack Overflow
