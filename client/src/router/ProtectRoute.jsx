@@ -9,7 +9,7 @@ function ProtectRoute({ children }) {
   const { setUserInfo } = useAppStore();
   const [isLoading, setIsLoading] = useState(true); // Start with loading state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [errorToastShown, setErrorToastShown] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,19 +23,17 @@ function ProtectRoute({ children }) {
           throw new Error("Token expired. Please log in again.");
         }
       } catch (err) {
-        if (!errorToastShown) {
-          toast.error(err.message || "An error occurred");
-          setErrorToastShown(true);
-        }
+        console.log(err.message);
+
         navigate("/auth");
       } finally {
         setIsLoading(false);
       }
     };
     getUserData();
-  }, [navigate, errorToastShown, setUserInfo]);
+  }, [navigate, setUserInfo]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return;
 
   return isAuthenticated ? children : null;
 }

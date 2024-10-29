@@ -12,7 +12,6 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        <Route path="*" element={<Navigate to="/auth" />} />
         <Route
           element={
             <ProtectRoute>
@@ -26,7 +25,7 @@ function Router() {
           <Route path="profile" element={<Profile />} />
         </Route>
 
-       
+        {/* <Route path="*" element={<Navigate to="/auth" />} /> */}
       </Routes>
     </BrowserRouter>
   );

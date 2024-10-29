@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Victory from "@/assets/victory.svg";
 import Background from "@/assets/background.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import AuthForm from "@/components/auth/AuthForm";
+import { useAppStore } from "@/store";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
+  const navigate = useNavigate();
+  const { userInfo } = useAppStore();
+  useEffect(() => {
+    if (userInfo) navigate("/chat");
+  }, [userInfo, navigate]);
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-purple-50">
       <div
