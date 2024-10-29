@@ -55,7 +55,7 @@ export default function CreateChannel() {
 
   async function createChannel() {
     try {
-      if (channelName && selectedContacts.length > 0) {
+      if (channelName) {
         const response = await axios.post(CREATE_CHANNEL, {
           name: channelName,
           members: selectedContacts.map((contact) => contact.value),
