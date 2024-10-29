@@ -53,11 +53,7 @@
 * Better and responsive UI
 * More filtering options
 
-## List of known bugs
-* The pagination only lets the filter to apply on the current Gyans being rendered on the page.
-* On deleting a category, a question or a user, the documents in which they were refered are not deleted. This renders them as null on populating from the database and breaks the application.
-* On smaller screen, the UI breaks
-* A user should be able to write a single gyan and each topic but he can write multiple of them.
+
 
 ## References
 * Stack Overflow
