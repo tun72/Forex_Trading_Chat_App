@@ -1,6 +1,6 @@
 import { useAppStore } from "@/store";
 import axios from "@/helpers/axios";
-import downloadAxios from "axios";
+
 
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +9,7 @@ import { FaFileArchive } from "react-icons/fa";
 import { IoArrowDown, IoCloseSharp } from "react-icons/io5";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getColor } from "@/lib/utils";
+import { useSocket } from "@/context/SocketContext";
 
 function MessageContainer() {
   // scrollbar hidden
@@ -26,6 +27,8 @@ function MessageContainer() {
 
   const [showImage, setShowImage] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
+
+  const { onlineUsers } = useSocket();
 
   useEffect(() => {
     const getMessages = async () => {
@@ -76,6 +79,7 @@ function MessageContainer() {
 
   const renderMessages = () => {
     let lastDate = null;
+
     if (!selectedChatMessages) return;
     return selectedChatMessages.map((message, index) => {
       const messageDate = moment(message.timestamp).format("YYYY-MM-DD");
@@ -263,13 +267,20 @@ function MessageContainer() {
                 </AvatarFallback>
               )}
             </Avatar>
-            <div>
-              <span className="text-sm text-white/60">
-                {message.sender.username}
+            <div className="flex   flex-col">
+              <span className="text-sm text-green-400 mr-4">
+                {onlineUsers.includes(message.sender?._id) && "online"}
               </span>
-              <span className="text-xs text-white/60">
-                {moment(message.timestamp).format("LT")}
-              </span>
+
+              <div>
+                <span className="text-sm text-white/60 mr-4">
+                  {message.sender.username}
+                </span>
+
+                <span className="text-xs text-white/60">
+                  {moment(message.timestamp).format("LT")}
+                </span>
+              </div>
             </div>
           </div>
         ) : (

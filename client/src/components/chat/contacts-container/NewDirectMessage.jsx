@@ -28,7 +28,8 @@ import { useAppStore } from "@/store";
 export default function NewDirectMessage() {
   const [openNewContactModal, setOpenNewContactModal] = useState(false);
   const [searchContacts, setSearchContacts] = useState([]);
-  const { setSelectedChatData, setSelectedChatType } = useAppStore();
+  const { setSelectedChatData, setSelectedChatType, closeTrading } =
+    useAppStore();
 
   async function handelSearchContact(search) {
     if (search) {
@@ -36,10 +37,10 @@ export default function NewDirectMessage() {
         const response = await axios.post(SEARCH_CONTACT_ROUTE, { search });
 
         if (response.status === 200 && response.data.contacts) {
-          console.log("hit");
+          
 
           setSearchContacts((prev) => [...response.data.contacts]);
-          console.log(searchContacts);
+         
         }
       } catch (error) {
         console.log(error);
@@ -53,6 +54,7 @@ export default function NewDirectMessage() {
     setOpenNewContactModal(false);
     setSelectedChatData(contact);
     setSelectedChatType("contact");
+    closeTrading(true);
     setSearchContacts((prev) => []);
   }
   return (

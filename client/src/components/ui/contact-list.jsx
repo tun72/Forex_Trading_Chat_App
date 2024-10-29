@@ -2,6 +2,7 @@ import { useAppStore } from "@/store";
 import { Avatar, AvatarImage } from "./avatar";
 import { BACKEND_URL } from "@/helpers/const";
 import { getColor } from "@/lib/utils";
+import { useSocket } from "@/context/SocketContext";
 
 export default function ContactList({ contacts, isChannel = false }) {
   const {
@@ -11,6 +12,8 @@ export default function ContactList({ contacts, isChannel = false }) {
     setSelectedChatMessages,
     closeTrading,
   } = useAppStore();
+
+  const { onlineUsers } = useSocket();
 
   const handelClick = (contact) => {
     if (isChannel) setSelectedChatType("channel");
@@ -22,6 +25,8 @@ export default function ContactList({ contacts, isChannel = false }) {
       setSelectedChatMessages([]);
     }
   };
+
+
 
   return (
     <div className="mt-5">
@@ -37,25 +42,27 @@ export default function ContactList({ contacts, isChannel = false }) {
         >
           <div className="flex gap-5 items-center justify-start text-neutral-300">
             {!isChannel && (
-              <Avatar className="w-10 h-10  rounded-full overflow-hidden">
-                {contact?.image ? (
-                  <AvatarImage
-                    src={BACKEND_URL + "/" + contact?.image}
-                    alt="Profile"
-                    className="object-cover w-full h-full bg-black"
-                  />
-                ) : (
-                  <div
-                    className={`${
-                      selectedChatData && selectedChatData._id === contact._id
-                        ? "bg-[#ffffff22] border border-white/50"
-                        : getColor()
-                    } uppercase w-10 h-10  flex items-center justify-center text-lg border rounded-full `}
-                  >
-                    {contact?.username.split("").shift()}
-                  </div>
-                )}
-              </Avatar>
+              <>
+                <Avatar className="w-10 h-10  rounded-full overflow-hidden">
+                  {contact?.image ? (
+                    <AvatarImage
+                      src={BACKEND_URL + "/" + contact?.image}
+                      alt="Profile"
+                      className="object-cover w-full h-full bg-black"
+                    />
+                  ) : (
+                    <div
+                      className={`${
+                        selectedChatData && selectedChatData._id === contact._id
+                          ? "bg-[#ffffff22] border border-white/50"
+                          : getColor()
+                      } uppercase w-10 h-10  flex items-center justify-center text-lg border rounded-full `}
+                    >
+                      {contact?.username.split("").shift()}
+                    </div>
+                  )}
+                </Avatar>
+              </>
             )}
             {isChannel && (
               <div className="bg-[#ffffff22] h-10 w-10 flex items-center justify-center rounded-full">
@@ -65,7 +72,12 @@ export default function ContactList({ contacts, isChannel = false }) {
             {isChannel ? (
               <span>{contact.name}</span>
             ) : (
-              <span>{contact.username}</span>
+              <>
+                <span>{contact.username}</span>
+                <span className="text-green-400 text-sm">
+                  {onlineUsers.includes(contact?._id) && "online"}
+                </span>
+              </>
             )}
           </div>
         </div>

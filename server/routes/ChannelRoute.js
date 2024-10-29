@@ -21,6 +21,9 @@ router.post(
 router.get("/all", channelController.getUserChannels);
 router.get("/:channelId", channelController.getChannelMessages);
 
+router.post("/join", channelController.joinChannels);
+router.post("/leave", channelController.leaveChannels);
+
 router.delete("/:id", channelController.deleteChannel);
 
 module.exports = router;

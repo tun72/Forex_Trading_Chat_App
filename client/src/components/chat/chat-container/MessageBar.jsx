@@ -8,6 +8,7 @@ import { GrAttachment } from "react-icons/gr";
 import { IoSend } from "react-icons/io5";
 import { RiEmojiStickerLine } from "react-icons/ri";
 import { UPLOAD_FILE_ROUTE } from "@/helpers/const";
+import toast from "react-hot-toast";
 
 function MessageBar() {
   const [message, setMessage] = useState("");
@@ -98,13 +99,15 @@ function MessageBar() {
         }
       }
     } catch (err) {
-      console.log(err);
+      toast.error(err.message)
     } finally {
       setIsUploading(false);
     }
   }
 
   return (
+
+    
     <form
       className=" h-[10vh] bg-[#1c1d25] flex justify-center items-center px-8 mb-6 gap-6"
       onSubmit={handelSendMessage}

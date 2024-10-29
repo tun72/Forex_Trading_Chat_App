@@ -55,7 +55,7 @@ exports.saveFile = catchAsync(async (req, res, next) => {
 exports.aliasMessages = (req, res, next) => {
   const user1 = req.user._id;
   const user2 = req.body.id;
-  console.log(user2);
+
 
   req.query.sort = "timestamp";
   req.filter = {

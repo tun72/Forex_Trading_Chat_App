@@ -12,7 +12,7 @@ exports.channelMiddleware = catchAsync(async (req, res, next) => {
 
   
 
-  console.log(members);
+  
 
   req.body.created_by = req.user._id;
 

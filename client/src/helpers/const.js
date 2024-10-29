@@ -25,6 +25,10 @@ export const UPLOAD_FILE_ROUTE = `${MESSAGES_ROUTE}/upload`;
 //channel
 export const CREATE_CHANNEL = CHANNEL_ROUTE;
 export const GET_USER_CHANNEL_ROUTE = `${CHANNEL_ROUTE}/all`;
+export const JOIN_CHANNEL_ROUTE = `${CHANNEL_ROUTE}/join`;
+export const LEAVE_CHANNEL_ROUTE = `${CHANNEL_ROUTE}/leave`;
+
+
 
 
 

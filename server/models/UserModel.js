@@ -50,7 +50,7 @@ UserSchema.statics.login = async function (email, password) {
   }
 
   const isCorrect = await bcrypt.compare(password, user?.password || "");
-  console.log(isCorrect);
+
   if (!isCorrect) {
     throw new Error("Please check your email and password");
   }

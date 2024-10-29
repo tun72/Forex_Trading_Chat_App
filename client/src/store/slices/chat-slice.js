@@ -82,7 +82,7 @@ export const createChatSlice = (set, get) => ({
   },
 
   addContactsInDM: (message) => {
-    const userId = get().userInfo.id;
+    const userId = get().userInfo._id;
     const fromId =
       message.sender._id === userId
         ? message.recipient._id

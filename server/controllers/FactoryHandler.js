@@ -59,7 +59,7 @@ exports.getAll = (Model) =>
     if (req.filter) {
       filter = req.filter;
     }
-    console.log(req.query);
+   
 
     const features = new APIFeatures(Model.find(filter), req?.query || null).sort();
     

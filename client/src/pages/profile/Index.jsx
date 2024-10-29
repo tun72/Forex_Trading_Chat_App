@@ -68,7 +68,12 @@ function Profile() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-10 w-4/5 md:w-auto"
       >
-        <IoArrowBack className="text-4xl lg:text-6xl text-white/90 cursor-pointer" />
+        <IoArrowBack
+          onClick={() => {
+            navigate("/chat");
+          }}
+          className="text-4xl lg:text-6xl text-white/90 cursor-pointer"
+        />
         <div className="grid grid-cols-2 gap-5">
           <div
             className="relative w-32 md:w-48 flex items-center justify-center"
@@ -136,7 +141,7 @@ function Profile() {
             <Input
               type="text"
               disabled
-              value="Guest"
+              value={userInfo?.role}
               className="bg-[#2c2e3b] rounded-lg p-6"
             />
           </div>

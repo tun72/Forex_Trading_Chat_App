@@ -4,14 +4,15 @@ import { useAppStore } from "@/store";
 import { RiCloseFill } from "react-icons/ri";
 
 import { getColor } from "@/lib/utils";
-import { useState } from "react";
+
 import { DeleteChannel } from "@/components/admin/channel/DeleteChannel";
+import ChannelOption from "./ChannelOption";
 
 function ChatHeader() {
-  const { closeChat, selectedChatData, selectedChatType } = useAppStore();
+  const { closeChat, selectedChatData, selectedChatType, userInfo } =
+    useAppStore();
 
-  const [openDetail, setOpenDetail] = useState();
-
+  
   return (
     <div className=" h-[10vh] border-b-2 border-[#2f303b] flex items-center justify-between px-20">
       <div className=" flex gap-5 items-center w-full justify-between">
@@ -48,7 +49,16 @@ function ChatHeader() {
         </div>
 
         <div className=" flex items-center justify-center gap-5">
-          <DeleteChannel channelId={selectedChatData._id} />
+          {selectedChatType === "channel" && (
+            <>
+              
+              <ChannelOption />
+              {userInfo.role === "admin" && (
+                <DeleteChannel channelId={selectedChatData._id} />
+              )}
+            </>
+          )}
+
           <button
             onClick={closeChat}
             className=" text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all"

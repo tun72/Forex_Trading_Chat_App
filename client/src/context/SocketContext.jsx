@@ -7,6 +7,9 @@ const SocketContext = createContext(null);
 
 export function SocketProvider({ children }) {
   const [socket, setSocket] = useState(null);
+
+  const [onlineUsers, setOnlineUsers] = useState([]); // State for online users
+
   const {
     userInfo,
     selectedChatData,
@@ -62,20 +65,20 @@ export function SocketProvider({ children }) {
       };
 
       const handelForexData = (data) => {
-        console.log(data);
-        
         setForexData(data);
       };
       // Listen for 'receiveMessage' event
       socket.on("receiveMessage", handleReceiveMessage);
       socket.on("recieveChannelMessage", handleReceiveChannelMessage);
       socket.on("forexUpdate", handelForexData);
+      socket.on("onlineUsers", (users) => setOnlineUsers(users));
 
       return () => {
         if (socket) {
-          socket.off("receiveMessage", handleReceiveMessage);
-          socket.off("recieveChannelMessage", handleReceiveChannelMessage);
-          socket.off("forexUpdate", handelForexData);
+          socket.off("receiveMessage");
+          socket.off("recieveChannelMessage");
+          socket.off("forexUpdate");
+          socket.off("joinAndLeaveChannel");
           socket.disconnect();
         }
       };
@@ -91,7 +94,7 @@ export function SocketProvider({ children }) {
   ]);
 
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ socket, onlineUsers }}>
       {children}
     </SocketContext.Provider>
   );

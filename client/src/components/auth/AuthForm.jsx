@@ -42,7 +42,7 @@ function AuthForm({ isSignup = false }) {
       try {
         setIsLoading(true);
 
-        console.log(password);
+        
 
         let msg = isSignup ? "Sign Up" : "Login";
         const response = await axios.post(
@@ -57,10 +57,10 @@ function AuthForm({ isSignup = false }) {
           const user = response.data;
           setUserInfo(user.userInfo);
           toast.success(msg + "Success");
-          navigate("/profile")
+          navigate(isSignup ? "/profile" : "/chat");
         }
       } catch (err) {
-        console.log(err);
+        
         toast.error(err?.response?.data?.message || err.message);
       } finally {
         setIsLoading(false);
