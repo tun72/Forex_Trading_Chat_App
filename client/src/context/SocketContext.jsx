@@ -16,6 +16,8 @@ export function SocketProvider({ children }) {
     addContactsInDM,
   } = useAppStore();
 
+  const { setForexData } = useAppStore();
+
   useEffect(() => {
     if (userInfo) {
       // Initialize socket connection
@@ -59,15 +61,21 @@ export function SocketProvider({ children }) {
         addChannelInChannelList(message);
       };
 
+      const handelForexData = (data) => {
+        console.log(data);
+        
+        setForexData(data);
+      };
       // Listen for 'receiveMessage' event
       socket.on("receiveMessage", handleReceiveMessage);
       socket.on("recieveChannelMessage", handleReceiveChannelMessage);
+      socket.on("forexUpdate", handelForexData);
 
       return () => {
         if (socket) {
           socket.off("receiveMessage", handleReceiveMessage);
           socket.off("recieveChannelMessage", handleReceiveChannelMessage);
-
+          socket.off("forexUpdate", handelForexData);
           socket.disconnect();
         }
       };
@@ -79,6 +87,7 @@ export function SocketProvider({ children }) {
     selectedChatType,
     addChannelInChannelList,
     addContactsInDM,
+    setForexData,
   ]);
 
   return (

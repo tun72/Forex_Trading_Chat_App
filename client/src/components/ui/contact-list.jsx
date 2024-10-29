@@ -9,12 +9,14 @@ export default function ContactList({ contacts, isChannel = false }) {
     setSelectedChatData,
     setSelectedChatType,
     setSelectedChatMessages,
+    closeTrading,
   } = useAppStore();
 
   const handelClick = (contact) => {
     if (isChannel) setSelectedChatType("channel");
     else setSelectedChatType("contact");
 
+    closeTrading();
     setSelectedChatData(contact);
     if (setSelectedChatData && selectedChatData?._id !== contact._id) {
       setSelectedChatMessages([]);

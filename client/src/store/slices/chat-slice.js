@@ -3,11 +3,14 @@ export const createChatSlice = (set, get) => ({
   selectedChatData: undefined,
   selectedChatMessages: [],
   directMessagesContacts: [],
+  forexData: [],
 
   isUploading: false,
   isDownloading: false,
   fileUploadProgress: 0,
   fileDownloadProgress: 0,
+
+  isTrading: false,
 
   channels: [],
   setChannels: (channels) => set({ channels }),
@@ -30,7 +33,7 @@ export const createChatSlice = (set, get) => ({
       selectedChatType: undefined,
       selectedChatMessages: [],
     }),
-
+  closeTrading: () => set({ isTrading: false }),
   addMessage: (message) => {
     const selectedChatMessages = get().selectedChatMessages;
     const selectedChatType = get().selectedChatType;
@@ -102,6 +105,13 @@ export const createChatSlice = (set, get) => ({
     set({ directMessagesContacts: dmContacts });
   },
 
+  setForexData: (forexData) => {
+    set({ forexData });
+  },
+  setIsTrading: (isTrading) => {
+    set({ isTrading });
+  },
+
   clearAll: () =>
     set({
       selectedChatType: undefined,
@@ -112,6 +122,7 @@ export const createChatSlice = (set, get) => ({
       isDownloading: false,
       fileUploadProgress: 0,
       fileDownloadProgress: 0,
+      isTrading: false,
       channels: [],
     }),
 });

@@ -7,6 +7,7 @@ import { GET_DM_CONTACT, GET_USER_CHANNEL_ROUTE } from "@/helpers/const";
 import { useAppStore } from "@/store";
 import ContactList from "@/components/ui/contact-list";
 import CreateChannel from "@/components/admin/chat/CreateChannel";
+import TradingChannel from "../forex-container/TradingChannel";
 
 function ContactContainer() {
   const {
@@ -15,6 +16,7 @@ function ContactContainer() {
     channels,
     setChannels,
     userInfo,
+    
   } = useAppStore();
 
   useEffect(() => {
@@ -65,6 +67,8 @@ function ContactContainer() {
           {userInfo?.role === "admin" && <CreateChannel />}
         </div>
         <div className="max-h-[30vh] overflow-y-auto scrollbar-hidden">
+          {/* <ContactList contacts={channels} isChannel={true} />  */}
+          <TradingChannel />
           <ContactList contacts={channels} isChannel={true} />
         </div>
       </div>

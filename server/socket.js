@@ -2,6 +2,17 @@ const SocketIOServer = require("socket.io");
 const Message = require("./models/MessageModel");
 const Channel = require("./models/ChannelModel");
 
+const generateForexData = () => {
+  const pairs = ["EUR/USD", "USD/JPY", "GBP/USD", "AUD/USD", "USD/CHF"];
+
+  return pairs.map((pair) => ({
+    pair,
+    bid: (Math.random() * (1.5 - 1.1) + 1.1).toFixed(5),
+    ask: (Math.random() * (1.5 - 1.1) + 1.1).toFixed(5),
+    timestamp: new Date().toISOString(),
+  }));
+};
+
 const setupSocket = (server) => {
   const io = SocketIOServer(server, {
     cors: {
@@ -22,6 +33,15 @@ const setupSocket = (server) => {
       }
     }
   };
+  const broadcastForexData = () => {
+    console.log("hit");
+
+    // const forexData = generateForexData();
+    io.to("Trading").emit("forexUpdate", generateForexData());
+  };
+
+  // Set interval to broadcast Forex data every 20 seconds
+  setInterval(broadcastForexData, 20000);
 
   const sendMessage = async (message) => {
     const senderSocketId = userSocketMap.get(message.sender);
@@ -94,6 +114,7 @@ const setupSocket = (server) => {
 
     if (userId) {
       userSocketMap.set(userId, socket.id);
+      socket.join("Trading");
       console.log(`User connected: ${userId} with socket ID: ${socket.id}`);
     } else {
       console.log(`User ID not provided during connection.`);
