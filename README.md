@@ -1,4 +1,4 @@
-# IRIS Code In 107 Task-2 
+# Forex Trading Chat App Project
 
 ## Installation Steps:
 
@@ -33,20 +33,16 @@
 
 
 ## List of implemented features
-* Register and Login User
-* Each user gets a unique avatar
-* Users can only register with NITK email id
-* Different roles like Admin, Internship Coordinator, Placement Coordinator and User.
-* List of categories with ability to add and delete category for the admin
-* List of Users with their information
-* Admin can change allowed categories for each user and handle their roles and status.
-* Internship and Placement coordinators can edit the User status.
-* User Dashboard where a user can see the categories he can write about and the gyans he has already wrote.
-* List of Gyans
-* Seperate page for each Gyan with an accordion
-* Forms to add and edit gyans
-* Pagination on the Gyan Page
-* Filtering based on category and User branch
+* User Registration and Login: Users can register and log in to the chat application.
+* Unique User Avatars: Each user is assigned a unique avatar to represent them in the chat.
+* Email Registration Restriction: Users can only register using a valid NITK email ID.
+* Role Management: Different user roles, including Admin, Internship Coordinator, Placement Coordinator, and User, each with specific permissions.
+* Category Management: Admins can view, add, and delete categories for better organization of chat topics related to Forex trading.
+* User Management: Admins can view a list of users along with their information and manage their roles and statuses.
+* User Status Management: Internship and Placement Coordinators have the ability to edit the status of users.
+* User Dashboard: Users can view their accessible categories and any important updates relevant to Forex trading.
+* Real-Time Chat Functionality: Users can engage in real-time discussions about Forex trading strategies, market trends, and news.
+* Filtering Options: Users can filter chat topics based on categories and specific trading interests for easier access to relevant conversations.
 
 ## List of planned features
 * User authentication 
