@@ -60,9 +60,7 @@
 * Tailwind CSS docs
 * schdn ui
 * W3School
-* Jason Watmore's blog
 * Mongoose JS docs
-* Formik docs
 * Medium articles
 
 ## Screenshots
