@@ -9,9 +9,7 @@ export const createChatSlice = (set, get) => ({
   isDownloading: false,
   fileUploadProgress: 0,
   fileDownloadProgress: 0,
-
   isTrading: false,
-
   channels: [],
   setChannels: (channels) => set({ channels }),
 
